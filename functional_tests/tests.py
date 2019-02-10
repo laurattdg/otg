@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 import time
 
-MAX_WAIT = 10
+MAX_WAIT = 1
 
 class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
@@ -63,14 +63,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         self.wait_for_row_in_list_table('1: Buy peacock feathers')
         self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
-        self.fail('Finish the test!')
-        # Edith wonders wither the site will remember her list. The she 
-        # sees that the site has generated a uniwue URL for her -- there 
-        # is some eplanatory text to that effect
-
-        # She visiets that URL - her to-do list is still there
-
-        # Satified she goes back to sleep
+        
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
         self.browser.get(self.live_server_url)
