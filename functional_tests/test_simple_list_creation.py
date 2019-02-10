@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 
 
 class NewVisitorTest(FunctionalTest):
-
+             
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. She goes to tcheck out its homepage
         self.browser.get(self.live_server_url)
@@ -29,7 +29,7 @@ class NewVisitorTest(FunctionalTest):
         # 1: By peacock feathres@ as an item in a to-do list
         inputbox.send_keys(Keys.ENTER)
 
-        self.wait_for_row_in_list_table('1: Buy peacock feathers')
+        self.wait_for(lambda: self.check_for_row_in_list_table('1: Buy peacock feathers'))
 
         # There is still a text box inviting her to add another item. She
         # enters "Use peacock feathers to make a fly" as an item
@@ -40,8 +40,8 @@ class NewVisitorTest(FunctionalTest):
 
         # The page updates again, and now shows both items on her list
         
-        self.wait_for_row_in_list_table('1: Buy peacock feathers')
-        self.wait_for_row_in_list_table('2: Use peacock feathers to make a fly')
+        self.wait_for(lambda: self.check_for_row_in_list_table('1: Buy peacock feathers'))
+        self.wait_for(lambda: self.check_for_row_in_list_table('2: Use peacock feathers to make a fly'))
 
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
@@ -50,7 +50,7 @@ class NewVisitorTest(FunctionalTest):
         inputbox.send_keys('Buy peacock feathers')
         inputbox.send_keys(Keys.ENTER)
 
-        self.wait_for_row_in_list_table('1: Buy peacock feathers')
+        self.wait_for(lambda: self.check_for_row_in_list_table('1: Buy peacock feathers'))
         
         ediths_list_url = self.browser.current_url
         self.assertRegex(ediths_list_url, '/lists/.+')
@@ -67,7 +67,7 @@ class NewVisitorTest(FunctionalTest):
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
 
-        self.wait_for_row_in_list_table('1: Buy milk')
+        self.wait_for(lambda: self.check_for_row_in_list_table('1: Buy milk'))
 
 
         francis_list_url = self.browser.current_url
