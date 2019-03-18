@@ -51,7 +51,7 @@ class ListViewTest(TestCase):
         list_ = List.objects.create()
         response = self.client.post(
             f'/lists/{list_.id}/',
-            data={'item_text': ''}
+            data={'text': ''}
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'list.html')
@@ -61,19 +61,19 @@ class ListViewTest(TestCase):
 class NewListTest(TestCase):
 
     def test_can_save_a_POST_request(self):
-        response = self.client.post('/lists/new', data={'item_text': 'A new list item'})
+        response = self.client.post('/lists/new', data={'text': 'A new list item'})
 
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
         self.assertEqual(new_item.text, 'A new list item')
 
     def test_redirects_after_POST(self):
-        response = self.client.post('/lists/new', data={'item_text': 'A new list item'})
+        response = self.client.post('/lists/new', data={'text': 'A new list item'})
         list_ = List.objects.first()
         self.assertRedirects(response, f'/lists/{list_.id}/')
 
     def test_validation_errors_are_sent_back_to_the_home_page_template(self):
-        response = self.client.post('/lists/new', data={'item_text': ''})
+        response = self.client.post('/lists/new', data={'text': ''})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'home.html')
         expected_error = escape('You can\'t have an empty list item')
@@ -88,7 +88,7 @@ class NewItemTest(TestCase):
 
         self.client.post(
             f'/lists/{correct_list.id}/',
-            data={'item_text': 'A new item for an exisiting list'}
+            data={'text': 'A new item for an exisiting list'}
         )
 
         self.assertEqual(Item.objects.count(), 1)
@@ -102,7 +102,7 @@ class NewItemTest(TestCase):
 
         response = self.client.post(
             f'/lists/{correct_list.id}/',
-            data={'item_text': 'A new item for an exisiting list'}
+            data={'text': 'A new item for an exisiting list'}
         )
 
         self.assertRedirects(response, f'/lists/{correct_list.id}/')
