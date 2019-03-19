@@ -16,13 +16,6 @@ class MyListsTest(FunctionalTest):
         else:
             session_key = create_pre_authenticated_session(email)
 
-
-        # user = User.objects.create(email=email)
-        # session = SessionStore()
-        # session[SESSION_KEY] = user.pk
-        # session[BACKEND_SESSION_KEY] = settings.AUTHENTICATION_BACKENDS[0]
-        # session.save()
-        
         # to set a cookie we need to first visit the domain
         # 404 pages load the quickest!
         self.browser.get(self.live_server_url + '/404_no_such_url')
