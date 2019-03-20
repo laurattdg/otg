@@ -5,3 +5,4 @@ __pycache__
 *.pycstatic
 .env
 server-deets
+functional_tests/screendumps
